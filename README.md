@@ -1,0 +1,198 @@
+Javascript:
+
+What is your favourite new javascript feature and why?
+Yeah, there are many exciting js coding styles.
+-const a = b && c; ( if b then return c else null)
+-const a = b || c; ( if b then return b else return c)
+-const { a } = b; (better than const a = b.a)
+-const { a, ...others } = b ( if b={ a:””, b:””, c:””} then others = { b:””, c:”” } )
+-I think the parallel is the most important feature( async, await, promise… )
+-there are also const, let, BigInt, static Field features.
+
+
+Explain an interesting way in which you have used this javascript feature.
+It seems I already write the answer for this question in question1.
+More ex: await Promise.all(
+[1,2,3].map(async () => {await something},
+    [5,6,7].map(() => { await something })
+More ex: it is my way when working on react project.
+    Const [value, setValue] = useState();
+    Const onChange = useCallback((e) => setValue(e.target.value))
+Normally: <input value={value} onChange={onChange} />
+But my way: <input {…{ value, onChange }} />
+Is there any difference between regular function syntax and the shorter arrow function syntax? (Write the answer in your own words)
+-I think binding is the first benefit, arrow function binds automatically depends on it’s current context.
+-code clean & shorter:
+ Ex: array.map(function (el) { return el++ };
+       It can be like below
+    array.map(el => el++);
+ 
+What is the difference between ‘myFunctionCall(++foo)’   and  ‘myFunctionCall(foo++)’
+- ++foo means firstly foo = foo + 1 and render
+- foo++ means firstly render then foo = foo + 1; 
+In your own words, explain what a javascript ‘class’ is and how it differs from a function.
+Javascript `class` is not same as `class` that is used in c++ & java and etc.
+Javascprit is not object-oriented-programming language, but functional-programming language.
+`class` in javascript is a function actually, but just a special process there.
+It is a function that has [[FunctionKind]]:"classConstructor" and inner function as method and property by using setter and getter.
+In usages, it is almost same as real class.
+
+
+Css:
+
+In your own words, explain css specificity.
+For selecting rule,
+ - inline style
+ - using id (#)
+ - using class (.)
+ - using html tag ( div, p, span ... )
+In your own words, explain, what is ‘!important’ in css.  Also how does it work?  Are there any special circumstances when using it, where it’s behaviour might not be what you expect?
+If there are duplicated css for a selector, `!important` is higher priority.
+Actually, we should avoid using `!important` because some our css will not be used by `!important`
+What is your prefered layout system: inline-block, floating + clearing, flex, grid, other?  And why?
+I’d like to use flex very much. 
+
+
+Are negative margins legal and what do they do (margin: -20px)?
+I think yes.
+Margin-left: 20px : will make space 20px in the left of the element.
+Margin-left: -20px : will move element 20px towards the left.
+If a <div/> has no margin or other styling and a <p/> tag inside of it has a margin top of some kind, the margin from the <p/> tag will show up on the div instead (the margin will show above the div not inside of it), why is this?  What are the different things that can be done to prevent it?
+I don’t get it really. :)
+Unit tests:
+
+What technologies do you use to unit test your react components?
+Mostly I’d like to use cypress.
+
+
+Are there any pitfalls associated with this technology that have caused you difficulty in the past?
+Hmm… yes maybe.
+When checking if new table row is added after add action….
+It uses elasticSearch, and table should show the new row after indexing of elasticSearch is finished.
+We didn’t have idea how to trigger it, actually, no way~
+So to solve this, we check if there is new row after an interval(3s) in cypress, but it also not 100%, so we do above action for 3 times.
+Like that, it was a not good way, but no other way we found.
+How do you test in your unit tests to see if the correct properties are being passed to child components.
+    We can get target element by using cy.get[“[data-cy=xxxx”] after we add data-cy property
+            to the code.
+    And can use should, have, to check the value.
+
+
+
+React:
+
+React test step1:
+
+Create a react component that has a <div/> with a border.
+Inside this <div/> should be a <span/> that displays the ‘live’ width of the browser window at all times.  Keep in mind that the size of the window could easily be changed by the user and you should reflect this.
+
+
+function ReactComponent(props) {
+    return(
+         <div className=”div1”>
+            <span>
+                Live
+            </span>
+        </div>
+    )
+}
+scss:
+    .div1 {
+        width: 100vw;
+        Border: 1px solid #F00;
+        span {
+            letter-spacing: 25%;
+        }
+}
+    
+React test step2:
+
+Inside the <div/> you created in the previous step, add a text input that, as a number is entered into it, uses that number to set the height of the div itself in pixels, live as you update the text field (keypress not change event).
+
+
+function ReactComponent(props) {
+    Const [height, setHeight] = useState(“auto”);
+    Const handleHeight = (e) => setHeight(e.target.value));
+    return(
+     <div className=”div1” style={{height: height}}>
+            <span>Live</span>
+            <input value={height} onChange={handleHeight} />
+        </div>
+    )
+}
+
+
+React test step3:
+
+Add the following code to your project root (same project as in step 2, but add the code in the global / window space): 
+
+     Let divHeight;
+    window.setDivHeight = (height) => divHeight = height;
+
+Add a HOC for your div component that allows you to set the height of your <div/> component from the previous steps by calling that external function.
+
+If you do not know what a HOC is or how to create one, that is also fine, just mention that in your answer and instead create a parent component that can still do this (allow you to call that function ‘setDivHeight’ in order to set the height of the div manually.
+
+Bare in mind that when the height of the div is forcefully set like this, the text fields value should also update to reflect this and should still carry on working as normal (user can continue to modify its value).
+
+
+
+
+
+
+
+
+
+RXjs:
+
+What are the differences between Subject, BehaviorSubject and ReplaySubject?  And in what situation would you use each of these (please provide example scenarios)?
+
+Difference. BehaviorSubject emits last emitted value and its own default value to the subscribers if has no value emitted. RelaySubject emits n previous emitted values as it has some kind of buffer.
+If you have an array of values in a stream and you wish to pipe it such that it will emit the arrays values individually, one by one and wait for them all to be completed before processing another array, how would you do this?  Please provide a code example.
+E.g.
+[1,2] -> [3,4] -> [5,6,7]
+Should produce:
+1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
+
+
+subject.pipe().subscribe((val) => { val.map(item=> console.log(item)); }); subject.next([1,2]); subject.next([3, 4]);
+
+If you have a stream that receives individual values and would like to pipe it such that it builds an array out of these values, emitting the updated array each time a new value is added to it, how would you do this?  Please provide a code example.
+E.g.
+1 -> 2 -> 3 -> 4
+Should produce:
+[1] -> [1,2] -> [1,2,3] -> [1,2,3,4]
+
+subject.pipe(map(r => { arr.push(r); return arr; })).subscribe(() => { console.log(arr); }); subject.next(1); subject.next(2); subject.next(3); subject.next(4);
+
+
+
+Twilio:
+
+Explain which of the Twilio Api’s you have used.  Also explain how and in what scenarios you have used them.
+
+Yes, I have twilio experience.
+Firstly, needs to have TWILIO_SID, TWILIO_TOKEN and your number.
+Your numbers should be registered in your twilio account.
+
+My scenario was send sms when someone give feedback to his feed.
+ Actually, using twilio apis is very simple, i think.
+
+Code ex in my laravel project.
+
+use Twilio\Rest\Client;
+
+public function sendSMS($recipients, $message)
+    {
+        $account_sid = getenv("TWILIO_SID");
+        $auth_token = getenv("TWILIO_TOKEN");
+        $twilio_number = getenv("TWILIO_FROM");
+        
+        $client = new Client($account_sid, $auth_token);
+
+        $client->messages->create($recipients, ['from' => $twilio_number, 'body'=>$message]);
+    }
+
+
+
+
