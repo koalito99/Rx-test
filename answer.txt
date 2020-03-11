@@ -111,13 +111,13 @@ Inside the <div/> you created in the previous step, add a text input that, as a 
 
 
 function ReactComponent(props) {
-    Const [height, setHeight] = useState(“auto”);
-    Const handleHeight = (e) => setHeight(e.target.value));
+    const [height, setHeight] = useState(“auto”);
+    const handleHeight = useCallback(e => setHeight(e.target.value), [setHeight]);
     return(
      <div className=”div1” style={{height: height}}>
             <span>Live</span>
             <input value={height} onChange={handleHeight} />
-        </div>
+     </div>
     )
 }
 
@@ -135,7 +135,9 @@ If you do not know what a HOC is or how to create one, that is also fine, just m
 
 Bare in mind that when the height of the div is forcefully set like this, the text fields value should also update to reflect this and should still carry on working as normal (user can continue to modify its value).
 
-
+answer:
+I know HOC as well, recompose npm is a great hoc supporter and most popular.
+But as I know, using hooks and context is better than HOC nowadays.
 
 
 
