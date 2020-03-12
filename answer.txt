@@ -147,26 +147,26 @@ But as I know, using hooks and context is better than HOC nowadays.
 
 RXjs:
 
-What are the differences between Subject, BehaviorSubject and ReplaySubject?  And in what situation would you use each of these (please provide example scenarios)?
+-What are the differences between Subject, BehaviorSubject and ReplaySubject?  And in what situation would you use each of these (please provide example scenarios)?
 
 Difference. BehaviorSubject emits last emitted value and its own default value to the subscribers if has no value emitted. RelaySubject emits n previous emitted values as it has some kind of buffer.
-If you have an array of values in a stream and you wish to pipe it such that it will emit the arrays values individually, one by one and wait for them all to be completed before processing another array, how would you do this?  Please provide a code example.
+
+
+-If you have an array of values in a stream and you wish to pipe it such that it will emit the arrays values individually, one by one and wait for them all to be completed before processing another array, how would you do this?  Please provide a code example.
 E.g.
 [1,2] -> [3,4] -> [5,6,7]
 Should produce:
 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 
-
 subject.pipe().subscribe((val) => { val.map(item=> console.log(item)); }); subject.next([1,2]); subject.next([3, 4]);
 
-If you have a stream that receives individual values and would like to pipe it such that it builds an array out of these values, emitting the updated array each time a new value is added to it, how would you do this?  Please provide a code example.
+-If you have a stream that receives individual values and would like to pipe it such that it builds an array out of these values, emitting the updated array each time a new value is added to it, how would you do this?  Please provide a code example.
 E.g.
 1 -> 2 -> 3 -> 4
 Should produce:
 [1] -> [1,2] -> [1,2,3] -> [1,2,3,4]
 
 subject.pipe(map(r => { arr.push(r); return arr; })).subscribe(() => { console.log(arr); }); subject.next(1); subject.next(2); subject.next(3); subject.next(4);
-
 
 
 Twilio:
